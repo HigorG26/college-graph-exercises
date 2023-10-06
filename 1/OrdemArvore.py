@@ -1,8 +1,8 @@
-from Arvore import Arvore
+from Tree import Tree
 
 list = [5,2,4,12]
 
-binaryTree = Arvore()
+binaryTree = Tree()
 binaryTree.createBinaryTreeByList(valueList=list)
 
 print(binaryTree)

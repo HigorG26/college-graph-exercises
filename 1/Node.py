@@ -1,4 +1,4 @@
-class No:
+class Node:
     def __init__(self, value, left=None, right=None):
         self.value = value
         self.right = right
