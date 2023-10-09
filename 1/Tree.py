@@ -3,18 +3,22 @@ from Node import Node
 class Tree(object):
     def __init__(self):
         self.getRoot = None
+        self.getInOrder = []
+        self.getPostOrder = []
+        self.getPreOrder = []
 
     def createBinaryTreeByList(self,valueList):
         if(valueList[0] is not None):
             self.getRoot = Node(value=valueList[0])
+            self.getTotalNodes = len(valueList)
             valueList.pop(0)
-            totalValues = len(valueList)
+            totalValuesWIthoutRoot = len(valueList)
             valueAdded = 0
 
             for value in valueList:
                 nodePointer = self.getRoot
                 while(nodePointer is not None):
-                    if(valueAdded == totalValues):
+                    if(valueAdded == totalValuesWIthoutRoot):
                         nodePointer = None
 
                     if(value < nodePointer.value):
@@ -30,27 +34,27 @@ class Tree(object):
                             nodePointer.right = Node(value=value)
                             nodePointer = None
 
-                    valueAdded+=valueAdded        
+                    valueAdded+=valueAdded                     
         else:
             return
         
-    def inorder(root):
+    def inorder(self,root):
         if root:
-            inorder(root.left)
-            print(root.value, end=" ")
-            inorder(root.right)
+            self.inorder(root.left)
+            self.getInOrder.append(root.value)
+            self.inorder(root.right)
+        
     
-    def preorder(root):
+    def preorder(self,root):
         if root:
-            print(root.val, end=" "),
-            preorder(root.left)
-            preorder(root.right)
- 
+            self.getPreOrder.append(root.value)
+            self.preorder(root.left)
+            self.preorder(root.right)
     
-    def postorder(root):
+    def postorder(self,root):   
         if root:
-            postorder(root.left)
-            postorder(root.right)
-            print(root.val, end=" "),
+            self.postorder(root.left)
+            self.postorder(root.right)
+            self.getPostOrder.append(root.value)
  
  
