@@ -3,3 +3,4 @@ class Edge:
         self.value = value
         self.vertexA = vertexA
         self.vertexB = vertexB
+        self.getCheck = False

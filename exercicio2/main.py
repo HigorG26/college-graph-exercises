@@ -1,4 +1,5 @@
 import csv
+from Graph import Graph
 
 print('\n-=-=-= Exercício 2 -=-=-=')
 
@@ -7,11 +8,11 @@ pathList = []
 
 with open('./exercicio2/cidadedistancia.csv','r') as file:
     rows = csv.reader(file)
-    # format os erros do arquivo CSV 
+    # formatando os erros do arquivo CSV 
     for row in rows:
         foramtedRow = row[0].split(';')
 
-        # format nome cidade partida
+        # formatando nome cidade partida
         if(foramtedRow[0] == 'Indiatuaba'):
             foramtedRow[0] = 'Indaiatuba'
         if(foramtedRow[0] == 'Indiatuba'):
@@ -31,7 +32,7 @@ with open('./exercicio2/cidadedistancia.csv','r') as file:
         if(foramtedRow[0] == 'Osasco '):
             foramtedRow[0] = 'Osasco'
 
-        # format nome cidade chegada
+        # formatando nome cidade chegada
         if(foramtedRow[1] == 'Indiatuaba'):
             foramtedRow[1] = 'Indaiatuba'
         if(foramtedRow[1] == 'Indiatuba'):
@@ -55,7 +56,7 @@ with open('./exercicio2/cidadedistancia.csv','r') as file:
         cityList.append(foramtedRow[0])
         cityList.append(foramtedRow[1])
 
-        # format distancia entre as cidades 
+        # formatando distancia entre as cidades 
         formatedDistance = foramtedRow[2].split('"')
         if(len(formatedDistance) == 2):
             foramtedRow[2] = int(formatedDistance[1])
@@ -89,15 +90,21 @@ for key in uniqCityList:
             values = []
             values.append(pathList[i][1])
             values.append(pathList[i][2])
-            arr.append(values)
+            if (values not in arr):
+                arr.append(values)
         if(key == pathList[i][1]):
             values = []
             values.append(pathList[i][0])
             values.append(pathList[i][2])
-            arr.append(values)
+            if (values not in arr):
+                arr.append(values)
     pathDict[key] = arr
 
 print('Criando dicionário a partir do arquivo CSV...')
 print('\n')
 for key, value in pathDict.items() :
     print ( '{ '+ f'{key}: {value} '+'}\n')
+
+graph = Graph(pathDict)
+graph.createGraphByDict()
+graph.travelingSalesman()

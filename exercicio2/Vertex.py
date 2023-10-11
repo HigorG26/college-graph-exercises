@@ -1,4 +1,4 @@
 class Vertex:
-    def __init__(self, key=None, edgeList=None):
+    def __init__(self, key=None):
         self.key = key
-        self.edgeList = edgeList
+        self.edgeList = []
