@@ -107,4 +107,4 @@ for key, value in pathDict.items() :
 
 graph = Graph(pathDict)
 graph.createGraphByDict()
-graph.travelingSalesman()
+print(graph.travelingSalesman("Sao Paulo"))
