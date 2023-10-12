@@ -107,4 +107,5 @@ for key, value in pathDict.items() :
 
 graph = Graph(pathDict)
 graph.createGraphByDict()
-print(graph.travelingSalesman("Sao Paulo"))
+minCost = graph.travelingSalesman("Sao Paulo")
+print(f'O menor custo seria: {minCost} km')
