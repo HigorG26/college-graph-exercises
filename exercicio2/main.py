@@ -1,5 +1,5 @@
 import csv
-from Graph import Graph
+import sys
 
 print('\n-=-=-= Exercício 2 -=-=-=')
 
@@ -59,11 +59,15 @@ with open('./exercicio2/cidadedistancia.csv','r') as file:
         # formatando distancia entre as cidades 
         formatedDistance = foramtedRow[2].split('"')
         if(len(formatedDistance) == 2):
-            foramtedRow[2] = int(formatedDistance[1])
+            foramtedRow[2] = float(formatedDistance[1])
         else:
-            formatedDistance2 = foramtedRow[2].split('.')
-            if(formatedDistance2[0] != 'distancia'):
-                foramtedRow[2] = int(formatedDistance2[0])
+            # formatedDistance2 = foramtedRow[2].split('.')
+            if(foramtedRow[2] != 'distancia'):
+                if(' ' in foramtedRow[2]):
+                    formatedDistance2 = foramtedRow[2].split('.')
+                    foramtedRow[2] = formatedDistance2[0]
+                else:
+                    foramtedRow[2] = float(foramtedRow[2])
 
         # adicionando os caminhos com suas distancias em um vetor
         pathList.append(foramtedRow)
@@ -81,31 +85,22 @@ for city in cityList:
         uniqCityList.append(city)
         cityCheck.append(city)
 
-# criando o dicionario para gerar o grafo entre os cidades
-pathDict = {}
-for key in uniqCityList:
-    arr = []
-    for i in range(len(pathList)):
-        if(key == pathList[i][0]):
-            values = []
-            values.append(pathList[i][1])
-            values.append(pathList[i][2])
-            if (values not in arr):
-                arr.append(values)
-        if(key == pathList[i][1]):
-            values = []
-            values.append(pathList[i][0])
-            values.append(pathList[i][2])
-            if (values not in arr):
-                arr.append(values)
-    pathDict[key] = arr
+graphDict = {}
+for city in uniqCityList:
+    dictValue = {}
+    for j in range(len(pathList)):
+        vertexA = pathList[j][0]
+        vertexB = pathList[j][1]
+        if city == pathList[j][0]:
+            dictValue[pathList[j][1]] = pathList[j][2]
+    graphDict[city] = dictValue
 
-print('Criando dicionário a partir do arquivo CSV...')
-print('\n')
-for key, value in pathDict.items() :
-    print ( '{ '+ f'{key}: {value} '+'}\n')
+for key, value in graphDict.items():
+    print(f'{key}: {value} ')
 
-graph = Graph(pathDict)
-graph.createGraphByDict()
-minCost = graph.travelingSalesman("Sao Paulo")
-print(f'O menor custo seria: {minCost} km')
+
+# def travelingSalesmanProblem(graph):
+#     route = [0] * len(graphDict)
+#     counter = 0
+#     minCost = sys.maxsize
+#     pass49  6
